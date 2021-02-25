@@ -148,7 +148,7 @@
             "undefined": "You can apply. {{count}} applications"
           },
           "solution_chosen": {
-            "undefined":""
+            "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
             "undefined":""
@@ -157,7 +157,7 @@
             "undefined":""
           },
           "proposed": {
-            "undefined":""
+            "undefined":"Log in and vote for the team"
           },
           "work_started": {
             "undefined":""
@@ -177,7 +177,7 @@
             "undefined": ""
           },
           "solution_chosen": {
-            "undefined":""
+            "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
             "undefined":""
@@ -203,22 +203,23 @@
             "undefined": ""
           },
           "ready_to_apply": {
-            "undefined": ""
+            "undefined": "You can authorize the submission of solutions"
           },
           "solution_chosen": {
-            "undefined":""
+            "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
             "undefined":""
           },
           "work_finished": {
-            "undefined":""
+            "undefined":"You can accept the results of work"
           },
           "proposed": {
-            "undefined":""
+            "false":"Please enter the reward",
+            "true": "You can finish voting on the team. Already voted {{allTeamVoteScore}} participants."
           },
           "work_started": {
-            "undefined":""
+            "undefined":"You can complete supply solutions. Already submitted {{solutionCount}} solutions."
           },
           "team_chosen": {
             "undefined":""
@@ -232,22 +233,22 @@
             "undefined": ""
           },
           "ready_to_apply": {
-            "undefined": ""
+            "undefined": "You can apply to perform grate"
           },
           "solution_chosen": {
-            "undefined":""
+            "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
             "undefined":""
           },
           "work_finished": {
-            "undefined":""
+            "undefined":"You can vote for the solution"
           },
           "proposed": {
-            "undefined":""
+            "undefined":"Please vote for grant"
           },
           "work_started": {
-            "undefined":""
+            "undefined":"You can offer a solution"
           },
           "team_chosen": {
             "undefined":""
@@ -260,24 +261,27 @@
       "web3" : {
         "unauthorized": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
             "undefined": ""
           },
           "voting_started": {
-            "undefined": ""
+            "undefined": "Log in and vote for grant"
           },
           "rejected": {
             "undefined": ""
           },
           "approved": {
             "undefined": ""
+          },
+          "proposed": {
+            "undefined": "Log in and vote for the team"
           }
         },
         "authorized": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
             "undefined": ""
@@ -294,30 +298,33 @@
         },
         "workingGroup": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
-            "undefined": ""
+            "undefined": "You can accept the results of work"
           },
           "voting_started": {
-            "undefined": ""
+            "undefined": "You can finish voting on the grant. Already voted {{grantVoteScore}} participants."
           },
           "rejected": {
             "undefined": ""
           },
           "approved": {
-            "undefined": ""
+            "undefined": "You can start working on grant"
+          },
+          "proposed": {
+            "undefined": "Please enable vote"
           }
         },
         "DAOMember": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
             "undefined": ""
           },
           "voting_started": {
-            "undefined": ""
+            "undefined": "Please vote for grant"
           },
           "rejected": {
             "undefined": ""
@@ -330,7 +337,7 @@
       "disruptive" : {
         "unauthorized": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
             "undefined": ""
@@ -351,7 +358,7 @@
             "undefined": ""
           },
           "proposed": {
-            "undefined": ""
+            "undefined": "Log in and vote for the team"
           },
           "ready_to_apply": {
             "undefined": "You can apply. {{count}} applications"
@@ -359,7 +366,7 @@
         },
         "authorized": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
             "undefined": ""
@@ -390,13 +397,13 @@
         },
         "workingGroup": {
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
-            "undefined": ""
+            "undefined": "You can accept the results of work"
           },
           "voting_started": {
-            "undefined": ""
+            "undefined": "You can accept the results of work"
           },
           "rejected": {
             "undefined": ""
@@ -405,10 +412,11 @@
             "undefined": ""
           },
           "proposed": {
-            "undefined": ""
+            "true": "You can finish voting on the grant. Already voted {{grantVoteScore}} participants.",
+            "false": "Please enter the reward"
           },
           "ready_to_apply": {
-            "undefined": "{{count}} applications "
+            "undefined": "You can finish voting on the team. Already voted {{allTeamVoteScore}} participants."
           },
           "team_chosen" : {
             "undefined": "Awaiting team decision. Perhaps we need to notify them"
@@ -419,14 +427,15 @@
         },
         "DAOMember": {
           "ready_to_apply": {
-            "undefined": "{{count}} applications "
+            "false": "You can apply to perform grate",
+            "true": "Your application for participation has been accepted"
           },
           "proposed": {
             "false": "Your vote has been counted",
             "true": "Need vote"
           },
           "work_finished": {
-            "undefined": ""
+            "undefined": "Grant work completed successfully, {{winnerName}} wins"
           },
           "work_started": {
             "undefined": ""
@@ -444,7 +453,7 @@
             "undefined": ""
           },
           "team_chosen": {
-            "undefined": ""
+            "undefined": "Congratulations, you won! Get started when you're ready! {{teamVoteScore}} participants voted for your team"
           }
         }
       }
