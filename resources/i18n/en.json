@@ -453,7 +453,7 @@
             "undefined": ""
           },
           "team_chosen": {
-            "undefined": "Congratulations, you won! Get started when you're ready! {{teamVoteScore}} participants voted for your team"
+            "undefined": "Congratulations, you won! Get started when you're ready! !!!!!!!!!{{teamVoteScore}}!!!!!!!!! participants voted for your team"
           }
         }
       }

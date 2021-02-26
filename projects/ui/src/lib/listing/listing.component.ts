@@ -25,8 +25,9 @@ import {
   GrantsVariationType, GrantTypesEnum,
 } from '@services/static/static.model'
 import {ActivatedRoute} from '@angular/router'
-import { Async } from '@libs/decorators/async-input.decorator'
+import {Async} from '@libs/decorators/async-input.decorator'
 import {UserDataInterface} from '@services/user/user.interface'
+import {TextOptions} from '@services/text-options/text-options'
 
 @Component({
   selector: 'ui-listing',
@@ -48,14 +49,14 @@ export class ListingComponent implements OnDestroy {
 
   public readonly listGrantStatuses$: Observable<string[]> = this.grants.data$.pipe(
     map((grants: ContractGrantRawModel[]): string[] =>
-        grants instanceof Array ? Object.values(
-            grants.reduce<{[s: string]: string}>(
-                (origin, grant) => ({
-                  ...origin,
-                  ...(grant?.status?.value === undefined
-                    ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
-                    : {[grant?.status?.value]: grant?.status?.value})
-                }), {})) : []),
+      grants instanceof Array ? Object.values(
+        grants.reduce<{ [s: string]: string }>(
+          (origin, grant) => ({
+            ...origin,
+            ...(grant?.status?.value === undefined
+              ? {[GrantStatusEnum.noStatus]: GrantStatusEnum.noStatus}
+              : {[grant?.status?.value]: grant?.status?.value})
+          }), {})) : []),
     map((list: string[]) => list.length > 0 ? ['all'].concat(list as []) : list.length === 1 ? ['all'] : []))
 
   public readonly user$ = this.userService.data
@@ -65,40 +66,40 @@ export class ListingComponent implements OnDestroy {
   )
     .pipe(
       map(([grants, userServiceData, selectedTagName, contract]) => grants
-          .filter((grant: ContractGrantRawModel) => [
-            grant?.status?.value || GrantStatusEnum.noStatus,
-            'all'].includes(selectedTagName))
-          .map((grant: ContractGrantRawModel): ContractGrantModel => {
-            const label = this.createLabel(grant, userServiceData, contract)
+        .filter((grant: ContractGrantRawModel) => [
+          grant?.status?.value || GrantStatusEnum.noStatus,
+          'all'].includes(selectedTagName))
+        .map((grant: ContractGrantRawModel): ContractGrantModel => {
+          const label = this.createLabel(grant, userServiceData, contract)
 
-            return {
-              ...grant,
-              app: grant.app ? Object.values(grant.app) : [],
-              // Check labels with attribute grant in lang file
-              label
-            }
-          })
-          .sort(this.sort)
+          return {
+            ...grant,
+            app: grant.app ? Object.values(grant.app) : [],
+            // Check labels with attribute grant in lang file
+            label
+          } as ContractGrantModel
+        })
+        .sort(this.sort)
       ),
       publishReplay(1),
       refCount()
     )
 
   public otherGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
-  .pipe(
+    .pipe(
       map((grants) => grants
         .filter((grant: ContractGrantModel) => !grant?.label?.important)
       ),
       map(grants => grants.length > 0 ? grants : null)
-  )
+    )
 
   public importantGrantList$: Observable<ContractGrantModel[] | null> = this.grantsList$
-  .pipe(
+    .pipe(
       map((grants) => grants
-          .filter((grant: ContractGrantModel) => !!grant?.label?.important)
+        .filter((grant: ContractGrantModel) => !!grant?.label?.important)
       ),
       map(grants => grants.length > 0 ? grants : null)
-  )
+    )
 
   constructor (
     public route: ActivatedRoute,
@@ -109,7 +110,8 @@ export class ListingComponent implements OnDestroy {
     public userService: UserService,
     public contractService: ContractService,
     public teamService: TeamService
-  ) {}
+  ) {
+  }
 
   selectTag ($event: string): void {
     this.selectedTagName$.next($event)
@@ -164,19 +166,20 @@ export class ListingComponent implements OnDestroy {
   private createLabel (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contract: GrantsVariationType): GrantParams {
     let params: GrantParams = {}
 
-    params = {
-      ...params,
-      ...this.getStatusProperties(grant, userServiceData)
-    }
-
     const labelRole = userServiceData?.userRole || 'undefined'
     const labelStatus = grant?.status?.value || 'undefined'
     const labelContract = contract?.name || 'undefined'
+
+    params = {
+      ...params,
+      ...this.getStatusProperties(grant, userServiceData, labelContract)
+    }
+
     const labelImportant = params?.important === true ? 'true' : params?.important === false ? 'false' : 'undefined'
 
 
     const label = translate(
-        `listing.labels.${labelContract}.${labelRole}.${labelStatus}.${labelImportant}`, params)
+      `listing.labels.${labelContract}.${labelRole}.${labelStatus}.${labelImportant}`, params)
 
     return {
       ...params,
@@ -184,23 +187,52 @@ export class ListingComponent implements OnDestroy {
     }
   }
 
-  getStatusProperties (grant: ContractGrantRawModel, userServiceData: UserDataInterface): GrantParams {
-    switch(grant?.status?.value) {
-      case GrantStatusEnum.readyToApply:
-        return {
-          count: (grant?.app && Object.keys(grant?.app).length || '0').toString(),
-          important: userServiceData.roles.isAuth ?
-              grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
-        }
+  getStatusProperties (grant: ContractGrantRawModel, userServiceData: UserDataInterface, contractType: GrantTypesEnum): GrantParams {
+    const textOptions = (new TextOptions(grant, userServiceData, contractType)).generateAll()
+    switch (grant?.status?.value) {
       case GrantStatusEnum.proposed:
         return {
-          amount: grant?.voting?.amount?.value || '0',
-          score: grant?.voting?.state?.value || '0',
+          ...textOptions,
           important: userServiceData.roles.isDAO ? !(grant?.voted && grant?.voted[userServiceData?.userAddress]) : undefined
         }
-      case GrantTypesEnum.web3:
-
-        break
+      case GrantStatusEnum.readyToApply:
+        return {
+          ...textOptions,
+          important: userServiceData.roles.isAuth ?
+            grant?.applicants && grant?.applicants?.value.indexOf(userServiceData?.userAddress) >= 0 : undefined
+        }
+      case GrantStatusEnum.approved:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.rejected:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.teamChosen:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.solutionChosen:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.workStarted:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.workFinished:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.votingStarted:
+        return {
+          ...textOptions,
+        }
+      case GrantStatusEnum.noStatus:
+        return {
+          ...textOptions,
+        }
     }
     return {}
   }
