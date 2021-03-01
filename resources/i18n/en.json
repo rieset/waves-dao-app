@@ -148,7 +148,6 @@
             "undefined": "You can apply. {{count}} applications"
           },
           "solution_chosen": {
-            "undefined": ""
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
@@ -158,7 +157,6 @@
             "undefined": ""
           },
           "proposed": {
-            "undefined": ""
             "undefined":"Log in and vote for the team"
           },
           "work_started": {
@@ -179,7 +177,6 @@
             "undefined": ""
           },
           "solution_chosen": {
-            "undefined": ""
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
@@ -209,7 +206,6 @@
             "undefined": "You can authorize the submission of solutions"
           },
           "solution_chosen": {
-            "undefined": ""
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
@@ -457,7 +453,7 @@
             "undefined": ""
           },
           "team_chosen": {
-            "undefined": "Congratulations, you won! Get started when you're ready! {{teamVoteScore}} participants voted for your team"
+            "undefined": "Winner is elected. {{teamVoteScore}} participants voted for your team"
           }
         }
       }
