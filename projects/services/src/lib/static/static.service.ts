@@ -42,13 +42,13 @@ export class StaticService {
     return res
   }
 
-  getContactInfo(contactType: string): Observable<GrantsVariationType | null> {
+  getContactInfo (contactType: string): Observable<GrantsVariationType | null> {
     return this.getContactsList().pipe(
       map((contracts: GrantsVariationType[]) => contracts.find((item) => item.name === contactType) || null)
     )
   }
 
-  getStaticContract(contractType: GrantTypesEnum): Observable<GrantsVariationType> {
+  getStaticContract (contractType: GrantTypesEnum): Observable<GrantsVariationType> {
     this.contractService.switchContract(contractType)
     this.selectedContact$.next(contractType)
     return combineLatest([
@@ -71,19 +71,19 @@ export class StaticService {
     )
   }
 
-  checkPermissionSettings(contractType: string, roles: RolesInterface): boolean {
+  checkPermissionSettings (contractType: string, roles: RolesInterface): boolean {
     return roles.isManager
   }
 
-  checkPermissionCreateGrant(contractType: string, roles: RolesInterface): boolean {
+  checkPermissionCreateGrant (contractType: string, roles: RolesInterface): boolean {
     return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
-  checkPermissionFinishCreateGrant(contractType: string, roles: RolesInterface): boolean {
+  checkPermissionFinishCreateGrant (contractType: string, roles: RolesInterface): boolean {
     return contractType === GrantTypesEnum.web3 ? roles.isAuth : roles.isWG
   }
 
-  checkPermissionVoted(contractType: string, roles: RolesInterface): boolean {
+  checkPermissionVoted (contractType: string, roles: RolesInterface): boolean {
     return roles.isDAO
   }
 }

@@ -719,14 +719,14 @@
   },
   "contracts": {
     "votings": {
-      "navigation": "Special votings grants",
-      "preview": "assets/img/disruptive-type-preview.png",
-      "img": "assets/img/disruptive-type.png",
-      "title": "Special votings Grants",
-      "desc": "Special votings Grants are awarded to implement tasks dedicated to developing solutions that meet the rapidly accelerating Waves ecosystem needs.",
-      "banner": "Call for applications will be announced in Q2 2021. Stay tuned!",
+      "navigation": "Special votings",
+      "preview": "assets/img/special-votings-type-preview.png",
+      "img": "assets/img/special-votings-type.png",
+      "title": "Special votings",
+      "desc": "This smart contract verifies new tokens on exchange.waves by voting",
+      "banner": "We decide what new tokens to appear on Waves Exchange.",
       "about": "https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md",
-      "landing": "Major development or research tasks are proposed, which can be useful for the development and adoption of blockchain technology. You and your team can apply for one of these grants and receive a reward."
+      "landing": "This smart contract verifies new tokens on exchange.waves by voting."
     },
     "disruptive": {
       "navigation": "Disruptive grants",
