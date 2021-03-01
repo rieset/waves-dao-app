@@ -139,7 +139,7 @@
       "waves": "WAVES"
     },
     "labels": {
-      "interhack": {
+      "interhack" : {
         "unauthorized": {
           "undefined": {
             "undefined": ""
@@ -151,22 +151,22 @@
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
-            "undefined": ""
+            "undefined":""
           },
           "work_finished": {
-            "undefined": ""
+            "undefined":""
           },
           "proposed": {
             "undefined":"Log in and vote for the team"
           },
           "work_started": {
-            "undefined": ""
+            "undefined":""
           },
           "team_chosen": {
-            "undefined": ""
+            "undefined":""
           },
           "ready_to_submit": {
-            "undefined": ""
+            "undefined":""
           }
         },
         "authorized": {
@@ -180,22 +180,22 @@
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
-            "undefined": ""
+            "undefined":""
           },
           "work_finished": {
-            "undefined": ""
+            "undefined":""
           },
           "proposed": {
-            "undefined": ""
+            "undefined":""
           },
           "work_started": {
-            "undefined": ""
+            "undefined":""
           },
           "team_chosen": {
-            "undefined": ""
+            "undefined":""
           },
           "ready_to_submit": {
-            "undefined": ""
+            "undefined":""
           }
         },
         "workingGroup": {
@@ -209,7 +209,7 @@
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
-            "undefined": ""
+            "undefined":""
           },
           "work_finished": {
             "undefined":"You can accept the results of work"
@@ -222,10 +222,10 @@
             "undefined":"You can complete supply solutions. Already submitted {{solutionCount}} solutions."
           },
           "team_chosen": {
-            "undefined": ""
+            "undefined":""
           },
           "ready_to_submit": {
-            "undefined": ""
+            "undefined":""
           }
         },
         "DAOMember": {
@@ -239,7 +239,7 @@
             "undefined":"Grant work completed successfully, {{winnerName}} wins"
           },
           "rejected": {
-            "undefined": ""
+            "undefined":""
           },
           "work_finished": {
             "undefined":"You can vote for the solution"
@@ -251,14 +251,14 @@
             "undefined":"You can offer a solution"
           },
           "team_chosen": {
-            "undefined": ""
+            "undefined":""
           },
           "ready_to_submit": {
-            "undefined": ""
+            "undefined":""
           }
         }
       },
-      "web3": {
+      "web3" : {
         "unauthorized": {
           "work_finished": {
             "undefined": "Grant work completed successfully, {{winnerName}} wins"
@@ -334,7 +334,7 @@
           }
         }
       },
-      "disruptive": {
+      "disruptive" : {
         "unauthorized": {
           "work_finished": {
             "undefined": "Grant work completed successfully, {{winnerName}} wins"
@@ -418,7 +418,7 @@
           "ready_to_apply": {
             "undefined": "You can finish voting on the team. Already voted {{allTeamVoteScore}} participants."
           },
-          "team_chosen": {
+          "team_chosen" : {
             "undefined": "Awaiting team decision. Perhaps we need to notify them"
           },
           "undefined": {
@@ -568,10 +568,8 @@
     }
   },
   "setting": {
-
   },
   "application": {
-
   },
   "master_setting": {
     "management_settings": "Contract group management settings page. Allows you to add DAO members and Working group members",
@@ -680,7 +678,6 @@
     }
   },
   "create": {
-
   },
   "container": {
     "back": "Back",
@@ -763,9 +760,11 @@
     "fullGuide": "Full Guide",
     "learnMore": "Learn more",
     "rolesLink": "https://github.com/vlzhr/WavesDAO/blob/master/README.md#dao-roles",
+
     "grantDisruptiveLink": "https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md",
     "grantWeb3Link": "https://github.com/vlzhr/WavesDAO/blob/master/web3-grants-about.md",
     "grantInterhackLink": "https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md",
+
     "fullGuideLink": "https://github.com/vlzhr/WavesDAO#happy-path",
     "exploreGrantsTitle": "Explore Waves Grants",
     "disruptiveImage": "assets/img/disruptive-type-landing.png",
@@ -776,6 +775,7 @@
     "howToDAO_2": "Observe existing grants and voting statuses",
     "howToDAO_3": "Become a member and participate in voting",
     "howToDAO_4": "Apply for a grant with your project",
+
     "introDesc": "Waves DAO is a framework used by the Waves Association. The purpose is making decisions on supporting initiatives and projects, based on the Waves protocol in the ecosystem: Waves Protocol, Gravity, Neutrino and others. The main feature is the transparency of processes. For example, you can observe what decisions are being discussed, who exactly is behind their adoption to finance projects, and also how the voting takes place.",
     "whatAreRoles": "What are the Roles",
     "applicantDesc": "A user who can apply for a grant. If their application is approved by the DAO Member vote, the applicant will be awarded a <strong>Performer</strong> status.<br><br>In the Waves Association: all users submitting applications to execute a grant. To apply, users need a Waves account.",
@@ -783,6 +783,7 @@
     "daoDesc": "DAO Members are all eligible members to vote for a decision on grant issue.<br><br>In the Waves Association: this entity represents the general meeting, which is the main entity that participates in votes and makes decisions. Currently the association has 30 members.",
     "daoManagerDesc": "This entity plays a supportive function, setting DAO Members and Working Group lists before grants distribution.<br><br>In the Waves Association, the DAO Manager represents the association’s secretary’s account. The DAO Manager does not participate in DAO votes.",
     "boardDesc": "A body composed of certain DAO Members who are performing the final validation function approves decisions made by DAO Members and accepts work of the Working Group.<br><br>In the Waves Association, the final approval body is the Board. The Board approves all solutions made by the general meeting.",
+
     "whyDAO": "Why DAO",
     "whyDAO_title_1": "The power of community",
     "whyDAO_title_2": "Decision making framework",
@@ -790,6 +791,7 @@
     "whyDAO_content_1": "DAO attracts community members to participate in Waves ecosystem development processes, and keeps everyone on the same page",
     "whyDAO_content_2": "Using DAO Association, members are following predefined steps to make the decisions with a simple UX and fast transactions",
     "whyDAO_content_3": "Any internet user can observe decision making processes and stay sure that the decisions are made transparently and honestly",
+
     "workflow": "The Workflow",
     "workflow_description": "As a preparation for launching a grant process, the DAO Manager sets the lists of Waves Association and Working Group members."
   },

@@ -6,6 +6,7 @@ import {translate} from '@ngneat/transloco'
 import {ContractGrantModel} from '@services/contract/contract.model'
 import {LinkHttpPipe} from '@libs/pipes/link-http.pipe'
 import {StaticService} from '@services/static/static.service'
+import {UserService} from '@services/user/user.service'
 
 @Component({
   selector: 'ui-flow-text',
@@ -51,8 +52,8 @@ export class FlowTextComponent implements OnDestroy {
 
   constructor (
     public staticService: StaticService, // eslint-disable-line
-  ) {
-  }
+    public userService: UserService,
+  ) {}
 
   private prepareData (grant: ContractGrantModel): {
     voteScore: string,
@@ -63,6 +64,7 @@ export class FlowTextComponent implements OnDestroy {
     teamsAmount: string,
     winnerIdentifier: string
   } {
+
     let voteScore = 0
     let votesAmount = 0
     if (grant.voted) {
