@@ -18,9 +18,16 @@ import {AllTeamsBtnModule} from '@ui/all-teams-btn/all-teams-btn.module'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import {FlowTextModule} from '@ui/flow-text/flow-text.module'
 import {ScoreListModule} from '@ui/score-list/score-list.module'
+import {SpecialVotingsTemplateComponent} from "@pages/entity-page/special-votings-template/special-votings-template.component";
 
 @NgModule({
-  declarations: [ EntityPageComponent, Web3TemplateComponent, InterhackTemplateComponent, DisruptiveTemplateComponent],
+  declarations: [
+    EntityPageComponent,
+    Web3TemplateComponent,
+    InterhackTemplateComponent,
+    SpecialVotingsTemplateComponent,
+    DisruptiveTemplateComponent
+  ],
   imports: [
     MatTooltipModule,
     AllTeamsBtnModule,

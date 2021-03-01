@@ -1,0 +1,87 @@
+<ng-template #headerControlsTemplate>
+
+  <button class="active" (click)="addReward()" *ngIf="isShowAddRewardBtn$ | async">
+    {{'entity.add_reward' | transloco}}
+  </button>
+
+  <button class="active" (click)="startWork()" *ngIf="isStartWorkBtn$ | async">
+    {{'entity.start_work' | transloco}}
+  </button>
+
+</ng-template>
+
+<ng-template #controlsTemplate>
+
+  <button (click)="finishVote()" *ngIf="isFinishVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button (click)="finishApplicantsVote()" *ngIf="isFinishApplicantsVoteBtn$ | async">
+    {{'entity.finish_vote' | transloco}}
+  </button>
+
+  <button (click)="acceptWorkResult()" *ngIf="isAcceptWorkResultBtn$ | async">
+    {{'entity.accept_work_result' | transloco}}
+  </button>
+
+  <button *ngIf="isRejectBtn$ | async" (click)="reject()">
+    {{'entity.reject' | transloco}}
+  </button>
+
+</ng-template>
+
+
+<ng-template #team>
+
+  <ui-score-list
+    titleText="{{'entity.teams' | transloco}}"
+    applyBtnText="{{'entity.apply' | transloco}}"
+    [grant]="grant"
+    [header]="teamsHeader$ | async"
+    [list]="teams$ | async"
+    (newVoteEvent)="voteTeam($event)"
+    (newSignupEvent)="signup()"
+    (newOpenApplyModalEvent)="openApplyModal()"
+  ></ui-score-list>
+
+  <ui-all-teams-btn *ngIf="isShowTeamsBtn$ | async"></ui-all-teams-btn>
+
+</ng-template>
+
+<ng-template #voteForTask>
+    <ui-vote-for-task
+      *ngIf="(isShowStepperAndTeam$ | async) && voteForTaskData.isShow"
+      [isShow]="voteForTaskData.isShow"
+      [isVote]="voteForTaskData.isVote"
+      [isVoteInProcess]="voteForTaskData.isVoteInProcess"
+      (newVoteEvent)="vote($event)"
+    ></ui-vote-for-task>
+</ng-template>
+
+<ng-template #stepper>
+<!--  *ngIf="isShowStepperAndTeam$ | async"-->
+  <ui-stepper
+    [setType]="'disruptive'"
+    [status]="grant?.status?.value"
+  ></ui-stepper>
+
+  <ui-flow-text
+    [isShowFlow]="true"
+    [grant]="(grant$ | async)"
+    [status]="(grant$ | async)?.status?.value"
+  ></ui-flow-text>
+
+</ng-template>
+
+<ui-entity
+  [contract]="contract" [grant]="grant"
+  (newFinishVoteEvent)="finishVote()"
+  (newStartWorkEvent)="startWork()"
+  (newRejectEvent)="reject()"
+  (newAcceptWorkResultEvent)="acceptWorkResult()"
+  [teamTemplate]="team"
+  [voteForTaskTemplate]="voteForTask"
+  [stepperTemplate]="stepper"
+  [headerControlsTemplate]="headerControlsTemplate"
+  [controlsTemplate]="controlsTemplate"
+></ui-entity>

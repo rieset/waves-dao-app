@@ -23,6 +23,7 @@ export class LoadingWrapper<T> {
   )
 
   constructor (data: Observable<T>) {
+    console.log('----')
     this.data$ = data.pipe(
       takeUntil(this.destroyed$),
       publishReplay(1),

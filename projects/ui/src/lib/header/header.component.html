@@ -15,7 +15,6 @@
       </div>
     </div>
     <ul class="nav" [class.open]="isToggleMenuOpen">
-
       <li *ngFor="let contract of contractsList$ | async"
           class="mat-display-2"
           (click)="isToggleMenuOpen = false"
