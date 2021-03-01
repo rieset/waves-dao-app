@@ -31,9 +31,6 @@ export class ListingPageComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     console.log('CONSTANTS', this.constants)
     console.log('API', this.api)
-    this.contract.data$.subscribe( e => {
-      console.log('CONSTANTS data$', e)
-    })
   }
 
   ngOnDestroy (): void {

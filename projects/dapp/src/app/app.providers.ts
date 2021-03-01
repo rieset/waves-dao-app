@@ -24,14 +24,14 @@ export interface AppApiInterface {
   }
   contracts: {
     disruptive: string
-    specialVotings: string
+    votings: string
     web3: string
     interhack: string
   }
   grantsProgramLink: string
   issues: {
     disruptive: string
-    specialVotings: string
+    votings: string
     web3: string
     interhack: string
   }

@@ -15,7 +15,7 @@ export const environment = {
     },
     contracts: {
       disruptive: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
-      specialVotings: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
+      votings: '3N1vwPpGTfCSYkJxLkA47nYiyJSDPyeVDFD',
       web3: '3Ms9uNDuJGQrtsFzhPUy4gHbHF2cHMSQQHB',
       interhack: '3Mqn3vqCeTsYQgHyvh7GGseW25rC4U12AMj'
     },
@@ -23,7 +23,7 @@ export const environment = {
       disruptive: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
         'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
         'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
-      specialVotings: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
+      votings: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +
         'KardanovIR&labels=Disruptive+Tech+Grant&template=track-1--disruptive-' +
         'tech-grant.md&title=%5BTrack+1.+Disruptive+Tech+Grant%5D+',
       web3: 'https://github.com/vlzhr/grants-program/issues/new?assignees=' +

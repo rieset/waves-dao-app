@@ -3,7 +3,7 @@ export enum GrantTypesEnum {
   web3 = 'web3',
   disruptive = 'disruptive',
   interhack = 'interhack',
-  specialVotings = 'specialVotings'
+  votings = 'votings'
 }
 
 export interface GrantsVariationType {

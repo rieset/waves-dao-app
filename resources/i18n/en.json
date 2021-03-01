@@ -718,7 +718,7 @@
     "disabled_submit_text": "Wait, processing is in progress!"
   },
   "contracts": {
-    "specialVotings": {
+    "votings": {
       "navigation": "Special votings grants",
       "preview": "assets/img/disruptive-type-preview.png",
       "img": "assets/img/disruptive-type.png",

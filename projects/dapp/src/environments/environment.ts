@@ -14,13 +14,13 @@ export const environment = {
     },
     contracts: {
       disruptive: '${DISRUPTIVE}',
-      specialVotings: '${SPECIAL_VOTINGS}',
+      votings: '${VOTINGS}',
       web3: '${WEB3}',
       interhack: '${INTERHACK}'
     },
     issues: {
       disruptive: '${DISRUPTIVE_ISSUE_TEMPLATE}',
-      specialVotings: '${SPECIAL_VOTINGS_ISSUE_TEMPLATE}',
+      votings: '${VOTINGS_ISSUE_TEMPLATE}',
       web3: '${WEB3_ISSUE_TEMPLATE}',
       interhack: '${INTERHACK_ISSUE_TEMPLATE}'
     },

@@ -33,17 +33,17 @@ import {
   prepareIsRejectBtnData,
   prepareTeamsData,
   prepareTeamsHeaderData
-} from '@pages/entity-page/special-votings-template/functions'
+} from '@pages/entity-page/votings-template/functions'
 import {ActivatedRoute} from '@angular/router'
 import {IScore} from '@services/interface'
 import {FinishApplicantsVotingComponent} from '@ui/modals/finish-applicants-voting/finish-applicants-voting.component'
 
 @Component({
-  selector: 'app-special-votings-template',
-  templateUrl: './special-votings-template.component.html',
-  styleUrls: ['./special-votings-template.component.scss']
+  selector: 'app-votings-template',
+  templateUrl: './votings-template.component.html',
+  styleUrls: ['./votings-template.component.scss']
 })
-export class SpecialVotingsTemplateComponent implements TemplateComponentAbstract, OnDestroy {
+export class VotingsTemplateComponent implements TemplateComponentAbstract, OnDestroy {
   @Input() public readonly contract!: GrantsVariationType
 
   grantStatusEnum = GrantStatusEnum
