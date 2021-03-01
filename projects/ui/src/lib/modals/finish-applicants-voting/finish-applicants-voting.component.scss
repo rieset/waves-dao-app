@@ -1,0 +1,14 @@
+@import 'const';
+
+form {
+  margin-top: -20px;
+}
+
+::ng-deep  .mat-form-field-ripple {
+  background: $color_waves_blue;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background: $color_dark_gray;
+  height: 2px !important;
+}

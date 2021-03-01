@@ -39,20 +39,17 @@
 
 <ng-template #team>
 
-  <ui-teams-and-solutions
-    [grant]="grant"
-    [winnerSolutionId]="winnerSolutionId"
-    [multiWinners]="multiWinners$ | async"
-    [squareFakeBlockVoting]="squareFakeBlockVoting$ | async"
-    [teamsAndSolutionsControls]="teamsAndSolutionsControls$ | async"
-    (newSignupEvent)="signup()"
-    (newOpenApplyModalEvent)="openApplyModal()"
-    (newVoteTeamEvent)="voteTeam($event)"
-    (newVoteForSolutionEvent)="voteForSolution($event)"
-    (newSubmitSolutionEvent)="submitSolution()"
-    titleText="{{titleText$ | async}}"
-    applyBtnText="{{'entity.apply' | transloco}}"
-  ></ui-teams-and-solutions>
+    <ui-score-list
+      titleText="{{titleText$ | async}}"
+      applyBtnText="{{'entity.apply' | transloco}}"
+      [grant]="grant"
+      [header]="teamsAndSolutionHeader$ | async"
+      [list]="teamsAndSolution$ | async"
+      (newVoteEvent)="stepType$.getValue() === eScore.team ? voteTeam($event) : voteSolution($event)"
+      (newSignupEvent)="signup()"
+      (newOpenApplyModalEvent)="openApplyModal()"
+      (newSubmitSolutionEvent)="submitSolution()"
+    ></ui-score-list>
 
   <ui-all-teams-btn *ngIf="isShowAllTeamsBtn$ | async"></ui-all-teams-btn>
 

@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'entity.winner' | transloco | titlecase}}</mat-label>
+    <select formControlName="winnerId" matNativeControl>
+      <option *ngFor="let id of params.teamIdList" [value]="id">{{id}}</option>
+    </select>
+  </mat-form-field>
+  <div class="btn-container full">
+    <button type="submit" class="btn active" [disabled]="!form.valid">
+      {{'accept_work_result.form.send' | transloco}}
+    </button>
+  </div>
+</form>

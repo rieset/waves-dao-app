@@ -29,7 +29,8 @@ export class ListingPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit (): void {
-
+    console.log('CONSTANTS', this.constants)
+    console.log('API', this.api)
   }
 
   ngOnDestroy (): void {

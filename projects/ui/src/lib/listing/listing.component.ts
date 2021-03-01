@@ -17,7 +17,7 @@ import {
 import {UserService} from '@services/user/user.service'
 import {map, publishReplay, refCount} from 'rxjs/operators'
 import {ContractService} from '@services/contract/contract.service'
-import {TeamService} from '@services/team/team.service'
+
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs'
 import {translate} from '@ngneat/transloco'
 import {
@@ -107,8 +107,7 @@ export class ListingComponent implements OnDestroy {
     @Inject(API) public readonly api: AppApiInterface,
     @Inject(GRANTS) public readonly grants: LoadingWrapperModel<ContractGrantRawModel[]>,
     public userService: UserService,
-    public contractService: ContractService,
-    public teamService: TeamService
+    public contractService: ContractService
   ) {}
 
   selectTag ($event: string): void {

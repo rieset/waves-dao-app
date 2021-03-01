@@ -41,6 +41,9 @@ export class StepperComponent implements AfterViewInit {
     if (data?.length > 0) {
       this.statusInput = data
       this.stepId = this.stepperService.getActiveId(data)
+      setTimeout(() => {
+        this.stepId = this.stepperService.getActiveId(data)
+      }, 100)
       if (this.stepId >= 0) {
         this.setId$.next(this.stepId)
       }

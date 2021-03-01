@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="input">
+    <div class="input-wrp">
+      <br/>
+      <input type="text" formControlName="reportLink" class="inputText" required>
+      <span class="floating-label">{{'entity.accept_work_result_report_link' | transloco}}</span>
+    </div>
+  </div>
+
+  <mat-form-field [style.width.%]="100">
+    <mat-label>{{'entity.winner' | transloco | titlecase}}</mat-label>
+    <select formControlName="winnerId" matNativeControl>
+      <option *ngFor="let id of params.solutionIdList" [value]="id">{{id}}</option>
+    </select>
+  </mat-form-field>
+  <div class="btn-container full">
+    <button type="submit" class="btn active" [disabled]="!form.valid">
+      {{'accept_work_result.form.send' | transloco}}
+    </button>
+  </div>
+
+</form>

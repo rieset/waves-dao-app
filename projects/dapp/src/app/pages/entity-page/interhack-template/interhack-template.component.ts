@@ -4,7 +4,7 @@ import {GrantStatusEnum, GrantsVariationType} from '@services/static/static.mode
 import {DisruptiveContractService} from '@services/contract/disruptive-contract.service'
 import {MatSnackBar} from '@angular/material/snack-bar'
 import {SignerService} from '@services/signer/signer.service'
-import {filter, map, take, takeUntil} from 'rxjs/operators'
+import {filter, map, take, takeUntil, tap} from 'rxjs/operators'
 import {translate} from '@ngneat/transloco'
 import {DialogComponent} from '@ui/dialog/dialog.component'
 import {ApplyComponent} from '@ui/modals/apply/apply.component'
@@ -21,12 +21,26 @@ import {
 } from '@pages/entity-page/entity.interface'
 import {AddRewardComponent} from '@ui/modals/add-reward/add-reward.component'
 import {UserService} from '@services/user/user.service'
-import {AcceptWorkResultComponent} from '@ui/modals/accept-work-result/accept-work-result.component'
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs'
 import {SubmitSolutionComponent} from '@ui/modals/submit-solution/submit-solution.component'
-import {isAcceptWorkResultBtnInterhack, teamsAndSolutionsControls} from './functions'
+import {
+  isAcceptWorkResultBtnInterhack,
+  isStopSubmissionsBtn,
+  prepareIsEnableSubmissionsBtnData,
+  prepareIsFinishVoteBtnData,
+  prepareIsRejectBtnData,
+  prepareIsShowAddRewardBtnData,
+  prepareIsStartWorkBtnData,
+  prepareSquareFakeBlockVotingData,
+  prepareTeamsAndSolutionData,
+  prepareTeamsAndSolutionHeaderData,
+  prepareTitleTextData,
+  teamsAndSolutionsControls,
+} from './functions'
 import {InterhackContractService} from '@services/contract/Interhack-contract.service'
 import {ActivatedRoute} from '@angular/router'
+import {IScore} from '@services/interface'
+import {AcceptWorkResultInterhackComponent} from '@ui/modals/accept-work-result-interhack/accept-work-result-interhack.component'
 
 @Component({
   selector: 'app-interhack-template',
@@ -38,6 +52,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   @Input() public readonly contract!: GrantsVariationType
   private readonly destroyed$ = new Subject()
   grantStatusEnum = GrantStatusEnum
+  eScore = IScore.EStepType
 
   @Input() set grant (data: ContractGrantModel) {
     this.inputGrant = data
@@ -71,97 +86,49 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
   }
   grant$ = new Subject<ContractGrantModel>()
 
-  isStopSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
-        let isVoteForSolution = false
-        if (grant.app) {
-          grant.app.forEach((app) => {
-            if (app.solution) {
-              isVoteForSolution = true
-            }
-          })
-        }
-        const isWG = user.roles.isWG
-        return isVoteForSolution && isWG && isStatusMatch
-      })
-    )
+  public readonly isStopSubmissionsBtn$: Observable<boolean> =
+    combineLatest([this.userService.data, this.grant$])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => isStopSubmissionsBtn(user, grant))
+      )
 
-  squareFakeBlockVoting$: Observable<boolean> = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        console.log(user)
-        return grant
-      }),
-      map((grant) => {
-        const isStatusMatch = grant?.status?.value === this.grantStatusEnum.workStarted
-        let isVoteForSolution = false
-        if (grant.app) {
-          grant.app.forEach((app) => {
-            if (app.solution) {
-              isVoteForSolution = true
-            }
-          })
-        }
-        return isVoteForSolution && isStatusMatch
-      })
-    )
+  public readonly squareFakeBlockVoting$: Observable<boolean> =
+    combineLatest([this.grant$, this.userService.data])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([grant]) => grant),
+        map((grant) => prepareSquareFakeBlockVotingData(grant))
+      )
 
-  isEnableSubmissionsBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        if (grant && grant.app) {
-          let isVoteForTeam = false
-          grant.app.forEach((app) => {
-            if (app && app.voted && app.votes) {
-              isVoteForTeam = true
-            }
-          })
-          const isTeamApply = grant.app.length > 0
-          const isRole = user.roles.isWG
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.readyToApply
-          return isVoteForTeam && isTeamApply && isRole && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+  public readonly isEnableSubmissionsBtn$: Observable<boolean> =
+    combineLatest([this.userService.data, this.grant$])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => prepareIsEnableSubmissionsBtnData(user, grant))
+      )
 
   public titleText$: Observable<string> = combineLatest([this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
-      map(([grant]): boolean => {
-        const grantStatus = grant?.status?.value || GrantStatusEnum.noStatus
-        if (
-          (
-            grantStatus === GrantStatusEnum.noStatus
-            || grantStatus === GrantStatusEnum.proposed
-            || grantStatus === GrantStatusEnum.readyToApply
-          )
-        ) {
-          return true
-        } else {
-          return false
-        }
-      }),
-      map((e: boolean): string => e
-        ? translate('entity.applied_teams')
-        : translate('entity.solutions'))
+      map(([grant]): string => prepareTitleTextData(grant)),
     )
+
+  stepType$: BehaviorSubject<IScore.EStepType> = new BehaviorSubject<IScore.EStepType>(IScore.EStepType.team)
 
   teamsAndSolutionsControls$: Observable<TeamsAndSolutionsControlsInterface> = combineLatest(
     [this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
-      map(([user, grant]) =>
-        teamsAndSolutionsControls(user, grant)),
+      map(([user, grant]) => teamsAndSolutionsControls(user, grant)),
+      tap(e =>
+        e.stepType === IScore.EStepType.team
+          ? this.stepType$.next(IScore.EStepType.team)
+          : this.stepType$.next(IScore.EStepType.solution)
+      )
     )
 
-  public isShowAllTeamsBtn$: Observable<boolean> = this.grant$
+  public readonly isShowAllTeamsBtn$: Observable<boolean> = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
       map(e => typeof e?.status?.value === 'string' ? e.status.value : ''),
@@ -172,119 +139,74 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       ),
     )
 
-
-  multiWinners$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  winnerSolutionId$: BehaviorSubject<string> = new BehaviorSubject<string>('')
   winnerSolutionId = ''
-  winnerSolutionId$ = this.grant$
+  solutionIdList: string[] = []
+  public readonly winnerSolution$ = this.grant$
     .pipe(
       takeUntil(this.destroyed$),
       filter(e => e !== null && e.app !== undefined && e.app.length > 0),
       map((e: ContractGrantModel): ContractGrantAppModel[] => e.app as ContractGrantAppModel[]),
       map((e: ContractGrantAppModel[]) => {
         let solution = e[0]
-        let maxScore = 0
-        let maxScoreSolutionCount = 0
+        const solutionIdList: string[] = []
         e.forEach(e => {
+
           const eScore = e.score?.solution?.value || 0
           const sScore = solution.score?.solution?.value || 0
+
+          if(eScore > 0 && e.key) {
+            solutionIdList.push(e.key)
+          }
+
           if (eScore >= sScore) {
             solution = e
-            maxScore = eScore
           }
+
         })
-        // multiWinners
-        e.forEach(e => {
-          const eScore = e.score?.solution?.value || 0
-          if (eScore === maxScore) {
-            maxScoreSolutionCount++
-          }
-        })
-        if (maxScoreSolutionCount > 1) {
-          this.multiWinners$.next(true)
-        } else {
-          this.multiWinners$.next(false)
-        }
-        return solution.key as string
+        return {key: solution.key as string, solutionIdList}
       })
     )
     .subscribe((e) => {
-      this.winnerSolutionId = e
+      this.winnerSolutionId = e.key
+      this.winnerSolutionId$.next(e.key)
+      this.solutionIdList = e.solutionIdList
     })
 
 
-  isStartWorkBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        if (grant) {
-          const isTL = grant.leader?.value === user.userAddress
-          const isStatusMatch = grant.status?.value === this.grantStatusEnum.approved
-          return isTL && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+  public readonly isStartWorkBtn$: Observable<boolean> =
+    combineLatest([this.userService.data, this.grant$])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => prepareIsStartWorkBtnData(user, grant))
+      )
 
-  isFinishVoteBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        if (grant) {
-          const isAmount = grant?.voting?.amount
-          const isStatusMatch = grant?.status?.value === this.grantStatusEnum.proposed
-          const isWG = user.roles.isWG
-          return isAmount && isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+  public readonly isFinishVoteBtn$: Observable<boolean> =
+    combineLatest([this.userService.data, this.grant$])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]): boolean => prepareIsFinishVoteBtnData(grant, user))
+      )
 
-  isAcceptWorkResultBtn$: Observable<boolean> = combineLatest([this.userService.data, this.grant$, this.multiWinners$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant, win]) => isAcceptWorkResultBtnInterhack(user, grant) && !win)
-    )
+  public readonly isAcceptWorkResultBtn$: Observable<boolean> =
+    combineLatest([this.userService.data, this.grant$])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => isAcceptWorkResultBtnInterhack(user, grant))
+      )
 
-  isRejectBtn$ = combineLatest([this.userService.data, this.grant$])
-    .pipe(
-      takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        if (grant) {
-          const isWG = user.roles.isWG
-          const isStatusMatch = grant?.status?.value !== this.grantStatusEnum.rejected
-          return isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
-    )
+  public readonly isRejectBtn$: Observable<boolean> =
+    combineLatest([this.userService.data, this.grant$])
+      .pipe(
+        takeUntil(this.destroyed$),
+        map(([user, grant]) => prepareIsRejectBtnData(grant, user))
+      )
 
   isShowAddRewardBtn$ = combineLatest([this.userService.data, this.grant$])
     .pipe(
       takeUntil(this.destroyed$),
-      map(([user, grant]) => {
-        if (grant) {
-          // !grant?.reward?.value
-          const isWG = user.roles.isWG
-          const isNoReward = !grant?.reward?.value
-          const isStatusMatch = !grant?.status?.value ||
-            grant?.status?.value === this.grantStatusEnum.proposed ||
-            grant?.status?.value === this.grantStatusEnum.readyToApply ||
-            grant?.status?.value === this.grantStatusEnum.teamChosen
-          return isNoReward && isWG && isStatusMatch
-        } else {
-          return false
-        }
-      })
+      map(([user, grant]) => prepareIsShowAddRewardBtnData(grant, user))
     )
-
-  userServiceData$ = this.userService.data
-    .pipe(takeUntil(this.destroyed$))
-    .subscribe(() => {
-      this.prepareVoteForTaskData()
-    })
 
   private user$ = this.userService.data
     .pipe(
@@ -294,6 +216,45 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     .subscribe(() => this.prepareVoteForTaskData(this.inputGrant))
 
   private inputGrant: ContractGrantModel = {}
+
+  public readonly teamsAndSolutionHeader$: Observable<IScore.IHeader> = combineLatest(
+    [
+      this.grant$,
+      this.userService.data,
+      this.userService.isBalanceMoreCommission$,
+      this.titleText$,
+      this.teamsAndSolutionsControls$
+    ])
+    .pipe(
+      filter(([grant]) => grant !== null && grant !== undefined),
+      map(([grant, user, isBalance, titleText, controls]): IScore.IHeader =>
+        prepareTeamsAndSolutionHeaderData(grant, user, isBalance, titleText, controls))
+    )
+
+
+  public readonly teamsAndSolution$: Observable<IScore.IUnit[]> = combineLatest(
+    [
+      this.grant$,
+      this.userService.data,
+      this.teamsAndSolutionsControls$,
+      this.stepType$,
+      this.squareFakeBlockVoting$,
+      this.winnerSolutionId$
+    ]
+  )
+    .pipe(
+      takeUntil(this.destroyed$),
+      filter(([grant]) => grant !== null && grant !== undefined),
+      map(([grant, user, controls, step, fake, winnerSolutionId]) => {
+          grant = grant
+          user = user
+          controls = controls
+          fake = fake
+          winnerSolutionId = winnerSolutionId
+          return prepareTeamsAndSolutionData(grant, user, controls, step.toString() , fake, winnerSolutionId)
+        }
+      )
+    )
 
   constructor (
     private route: ActivatedRoute, // eslint-disable-line
@@ -371,15 +332,17 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
       width: '500px',
       maxWidth: '100vw',
       data: {
-        component: AcceptWorkResultComponent,
+        component: AcceptWorkResultInterhackComponent,
         params: {
           title: translate('modal.texts.accept_work_result'),
           submitBtnText: translate('modal.btn.apply'),
+          proposedWinner: this.winnerSolutionId,
+          solutionIdList: this.solutionIdList,
           submitCallBack: (data: SubmitCallBackAcceptWorkResultArg) => {
-            if (this.grant?.id && this.winnerSolutionId) {
+            if (this.grant?.id && data.winnerTeamId) {
               this.interhackContractService.acceptWorkResult(
                 this.grant?.id,
-                this.winnerSolutionId,
+                data.winnerTeamId,
                 data.reportLink
               ).subscribe()
             }
@@ -450,7 +413,7 @@ export class InterhackTemplateComponent implements TemplateComponentAbstract, On
     })
   }
 
-  voteForSolution ($event: VoteTeamEventInterface): void {
+  voteSolution ($event: VoteTeamEventInterface): void {
     if (this.grant?.id) {
       this.disruptiveContractService.voteForSolution(
         this.grant?.id, $event.teamIdentifier, $event.voteValue).subscribe()

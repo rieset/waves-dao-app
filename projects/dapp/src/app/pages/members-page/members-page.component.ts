@@ -52,9 +52,8 @@ export class MembersPageComponent {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.commonContractService.addDAOMember(data.address)
-              .subscribe(() => {
-                dialog.close()
-              })
+              .subscribe()
+            dialog.close()
           }
         }
       }
@@ -72,9 +71,8 @@ export class MembersPageComponent {
           submitBtnText: translate('modal.btn.apply'),
           submitCallBack: (data: SubmitCallBackAddMemberArg) => {
             this.commonContractService.addGroupMember(data.address)
-              .subscribe(() => {
-                dialog.close()
-              })
+              .subscribe()
+            dialog.close()
           }
         }
       }

@@ -17,4 +17,5 @@ export class ScoreListComponent{
   @Output() newSignupEvent = new EventEmitter()
   @Output() newVoteEvent = new EventEmitter<VoteEventInterface>()
   @Output() newOpenApplyModalEvent = new EventEmitter()
+  @Output() newSubmitSolutionEvent = new EventEmitter()
 }

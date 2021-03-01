@@ -61,6 +61,7 @@
 <ng-template #stepper>
 <!--  *ngIf="isShowStepperAndTeam$ | async"-->
   <ui-stepper
+    [setType]="'disruptive'"
     [status]="grant?.status?.value"
   ></ui-stepper>
 

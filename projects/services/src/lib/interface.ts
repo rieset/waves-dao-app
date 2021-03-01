@@ -29,6 +29,10 @@ export namespace IScore {
   export interface ISort {
     by: 'team' | 'solution'
   }
+  export enum EStepType {
+    team = 'team',
+    solution = 'solution'
+  }
   export interface IHeader {
     titleText: string | null
     applyBtnText: string | null
@@ -37,6 +41,7 @@ export namespace IScore {
     isBalanceMoreCommission: boolean
     isApplyBtn: boolean
     isShowLogInForApplyBtn: boolean
+    isSubmitSolutionBtn?: boolean
   }
 }
 

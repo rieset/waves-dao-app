@@ -1,29 +1,32 @@
-@import "const";
+@import 'const';
 
 .statuses {
-  padding: 0;
-  margin: 0;
-  list-style: none;
   display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
   li {
-    padding: $padding / 2 $padding;
-    margin-left: $padding;
-    margin-bottom: 0;
     font-weight: 100;
     line-height: 1.5;
+    margin-bottom: 0;
+    margin-right: $padding;
+    padding: $padding / 2 $padding;
     white-space: nowrap;
   }
+
   &__has-solution {
-    color: #14C77A;
     background: rgba(20, 199, 122, 0.12);
+    color: #14c77a;
   }
+
   &__rejected {
-    color: #FF3D19;
     background: rgba(255, 61, 25, 0.12);
+    color: #ff3d19;
   }
+
   &__approve {
-    color: $color_waves_blue;
     background: lighten($color_waves_blue, 40%);
+    color: $color_waves_blue;
   }
 }
