@@ -718,16 +718,6 @@
     "disabled_submit_text": "Wait, processing is in progress!"
   },
   "contracts": {
-    "votings": {
-      "navigation": "Special votings",
-      "preview": "assets/img/special-votings-type-preview.png",
-      "img": "assets/img/special-votings-type.png",
-      "title": "Special votings",
-      "desc": "This smart contract verifies new tokens on exchange.waves by voting",
-      "banner": "We decide what new tokens to appear on Waves Exchange.",
-      "about": "https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md",
-      "landing": "This smart contract verifies new tokens on exchange.waves by voting."
-    },
     "disruptive": {
       "navigation": "Disruptive grants",
       "preview": "assets/img/disruptive-type-preview.png",
@@ -757,6 +747,16 @@
       "banner": "Join New Year Hackathon to participate in building cross-chain tools and compete for 12k WAVES prize pool",
       "about": "https://github.com/vlzhr/WavesDAO/blob/master/interhack-grants-about.md",
       "landing": "These grants are as close as possible to the usual hackathon format. The Association puts forward an idea and a proposed a reward, and you with the team compete in implementation after being selected as a candidate"
+    },
+    "votings": {
+      "navigation": "Special votings",
+      "preview": "assets/img/special-votings-type-preview.png",
+      "img": "assets/img/special-votings-type.png",
+      "title": "Special votings",
+      "desc": "This smart contract verifies new tokens on exchange.waves by means of voting",
+      "banner": "We decide what tokens to appear on Waves Exchange. Deal with it.",
+      "about": "https://github.com/vlzhr/WavesDAO/blob/master/disruptive-grants-about.md",
+      "landing": "This smart contract verifies new tokens on exchange.waves by means of voting."
     }
   },
   "landing-page": {
@@ -772,6 +772,7 @@
     "disruptiveImage": "assets/img/disruptive-type-landing.png",
     "web3Image": "assets/img/web3-type-landing.png",
     "interhackImage": "assets/img/interhack-type-landing.png",
+    "votingsImage": "assets/img/special-votings-type-landing.png",
     "howToDAO": "How to DAO",
     "howToDAO_1": "Login with your Waves account",
     "howToDAO_2": "Observe existing grants and voting statuses",

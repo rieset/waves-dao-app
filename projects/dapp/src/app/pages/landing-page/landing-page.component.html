@@ -241,6 +241,24 @@
         </div>
         <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/interhack-type-landing.png">
       </div>
+
+      <div class="landing-page__grants-cards">
+        <img class="landing-page__grants-cards-card-image" alt="img" src="assets/img/special-votings-type-landing.png">
+        <div class="landing-page__grants-cards-card">
+          <div class="landing-page__grants-cards-card-title mat-display-4">
+            {{ 'contracts.votings.title' | transloco }}
+          </div>
+          <div class="landing-page__grants-cards-card-desc mat-display-2">
+            {{ 'contracts.votings.landing' | transloco }}
+          </div>
+
+          <a
+            class="button landing-page__grants-cards-card-button btn active"
+            [routerLink]="constants.routes.listing | route: 'votings'">
+            {{ 'landing-page.exploreGrants' | transloco }}<img alt="img" src="assets/icons/arr-right-white.svg">
+          </a>
+        </div>
+      </div>
     </div>
 
     <!--DIAGRAM-->

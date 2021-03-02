@@ -14,7 +14,7 @@ import {API, AppApiInterface} from '@constants'
 export class StaticService {
   public selectedContact$: BehaviorSubject<GrantTypesEnum> = new BehaviorSubject<GrantTypesEnum>(GrantTypesEnum.disruptive)
 
-  constructor(
+  constructor (
     private readonly contractService: ContractService, // eslint-disable-line
     private readonly userService: UserService, // eslint-disable-line
     private readonly translocoService: TranslocoService, // eslint-disable-line
@@ -22,7 +22,7 @@ export class StaticService {
   ) {
   }
 
-  public getContactsList(): Observable<GrantsVariationType[]> {
+  public getContactsList (): Observable<GrantsVariationType[]> {
 
     const contracts = this.api.contracts as { [s: string]: string }
 
